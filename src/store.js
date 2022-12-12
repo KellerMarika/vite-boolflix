@@ -16,12 +16,20 @@ export const store = reactive({
       name: "movie",
       url: "/search/movie",
       active: true,/* ____________________________v:model radio button */
+      include_adult:true,
     },
     {
       name: "tv",
       url: "/search/tv",
-      active: true,
-    }
+      active: false,
+      include_adult:true,
+    },
+   /*  {
+      name: "all categories",
+      url: "/search/multi",
+      active: false,// ____________________________v:model radio button 
+      include_adult:true,
+    }, */
   ],
 
   language: "it-"
@@ -33,7 +41,7 @@ export function getList() {
   //ciclo sulle categorie
   store.categories.forEach((category, i) => {
 
-     if (category.active) {
+    if (category.active) {
       axios.get(`${store.baseApi_Url}${category.url}`, {
         params: {
           api_key: store.api_key,
@@ -45,14 +53,8 @@ export function getList() {
           /* array*/
           console.log(resp.data.results)
         });
-
     }
-
-
-
   });
-
-
 }
 
 

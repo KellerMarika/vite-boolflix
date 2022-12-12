@@ -1,19 +1,16 @@
 
 <template>
-
 </template>
 
 <script>
 
 import { store, getList} from './store';
 
-
 export default {
 	components: {},
 	data() {
 		return {
 			store,
-
 		}
 	},
 	methods: {
