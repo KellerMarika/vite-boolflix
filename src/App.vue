@@ -64,6 +64,6 @@ export default {
 @use "./styles/generic.scss";
 *{
 	border:1px solid blue;
-	padding:20px
+	padding: 5px 0
 }
 </style>

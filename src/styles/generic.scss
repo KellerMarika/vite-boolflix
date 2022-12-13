@@ -3,7 +3,7 @@
 @use "./partials/utilities" as *;
 
 @use "./partials/bootstrapMod";
-
+@use "@fortawesome/fontawesome-free/css/all.min.css";
 body{
   font-family: 'Roboto', sans-serif; ;
 }
