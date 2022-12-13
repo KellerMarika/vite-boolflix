@@ -2,27 +2,34 @@
 
   <header>
     <nav class="container d-flex align-items-center">
+
       <div class="logo">
-        <img src="#" alt="">
+        <img src="#" alt="LOGO">
       </div>
+
       <CategoriesNav />
 
-      <ul class="list-unstyled d-flex align-items-center">
-        <li class="list-group-item">
-          <label for="query-text">
-            <input type="text" id="query-text" name="query-text" v-model="store.text">
-          </label>
-        </li>
-        <li>
-          <button type="button" @click="fetchQueriesResults()">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </li>
-        <li>bambini</li>
-        <li> <i class="fa-solid fa-bell"></i></li>
-        <li>login</li>
-      </ul>
+      <form action="" class="d-flex flex-fill" @submit.prevent="fetchQueriesResults()">
+        
+        <ul class="list-unstyled d-flex align-items-center">
 
+          <li class="list-group-item">
+
+            <label for="query-text">
+              <input type="text" id="query-text" name="query-text" v-model="store.text">
+            </label>
+          </li>
+          <li>
+            <button type="button" @click="fetchQueriesResults()">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </li>
+          <li>bambini</li>
+
+          <li> <i class="fa-solid fa-bell"></i></li>
+          <li>login</li>
+        </ul>
+      </form>
 
 
 

@@ -12,16 +12,16 @@ export const store = reactive({
     {
       name: "movie",
       url: "/search/movie",
-      active: true,/* ____________________________v:model radio button */
+      active: true,
       include_adult: true,
-      moviesList:[]
-
+      list: []
     },
     {
       name: "tv",
       url: "/search/tv",
-      active: false,
+      active: true,
       include_adult: true,
+      list: []
     },
   ],
 

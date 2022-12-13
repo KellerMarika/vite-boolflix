@@ -1,9 +1,12 @@
 
 <template>
 
-<TheHeader/>
+	<TheHeader />
 
-<TheMain/>
+	<main class="main-container">
+		<TheMain />
+	</main>
+
 
 </template>
 
@@ -14,7 +17,7 @@ import TheHeader from "./components/TheHeader.vue"
 import TheMain from "./components/TheMain.vue"
 
 export default {
-	components: {TheHeader,TheMain,},
+	components: { TheHeader, TheMain, },
 	data() {
 		return {
 			store,
@@ -44,9 +47,10 @@ export default {
 					})
 						.then((resp) => {
 							/* array*/
-							category.moviesList = resp.data.results
-							console.log(category.name, category.moviesList)
-
+						/* 	category.moviesList = resp.data.results */
+				
+							category.list=(resp.data.results)
+							console.log(category.name, category.list)
 						});
 				}
 			});
@@ -62,8 +66,9 @@ export default {
 
 <style lang="scss">
 @use "./styles/generic.scss";
-*{
-	border:1px solid blue;
+
+* {
+	border: 1px solid blue;
 	padding: 5px 0
 }
 </style>
