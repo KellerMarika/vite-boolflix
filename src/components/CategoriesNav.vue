@@ -64,9 +64,9 @@ export default {
     onChange(id, $event) {
       this.store.categories.forEach(category => {
         if (category.name === id) {
-         ?.set(category, 'active', $event.target.checked);
+          Vue.set(category, 'active', $event.target.checked);
         } else {
-         ?.set(category, 'active', false)
+          Vue.set(category, 'active', false)
         }
       })
     }

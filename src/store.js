@@ -18,7 +18,7 @@ export const store = reactive({
     {
       name: "tv",
       url: "/search/tv",
-      active: false,
+      active: true,
       include_adult: true,
       list: []
     },
