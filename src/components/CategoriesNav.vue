@@ -1,21 +1,26 @@
 <template>
   <ul class="flex-fill list-unstyled d-flex align-items-center">
-    <!--  @change="changeCategory()" -->
-    <!--        @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false " -->
+
+    <!-- @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false " -->
     <li class="list-group-item"
-        v-for="category in store.categories"
-        @click="toActiveCategory()">
+        v-for="category in store.categories">
+
       <label :for="category.name">{{ category.name }}
-        <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory" />
+        <input type="checkbox" :id="category.name" name="category" v-model="category.active" />
       </label>
 
     </li>
-    <label for="all"> all
-      <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked>
-    </label>
-    <li>
 
+    <li v-for="category in store.categories">
+      <label :for="category.name">{{ category.name }}
+        <input type="radio" :id="category.name" name="category" v-model="category.active" />
+      </label>
     </li>
+
+
+    <!--  <label for="all"> all
+      <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked>
+    </label> -->
 
   </ul>
   <div>
@@ -38,20 +43,12 @@ export default {
   },
   methods: {
 
-    toActiveCategory(){
-      this.$emit("toActiveCategory",this.activeCategory)
+    toActiveCategory() {
+      this.$emit("toActiveCategory", this.activeCategory)
 
 
     },
-    changeCategory() {
-      if (activeCategory === category.name || activeCategory === "all") {
-        category.active = true
-      } else {
-        category.active = false
 
-      }
-
-    }
 
 
 

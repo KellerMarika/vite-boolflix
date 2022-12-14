@@ -7,7 +7,7 @@
         <img src="#" alt="LOGO">
       </div>
 
-      <CategoriesNav @toActiveCategory="toActiveCategory" />
+      <CategoriesNav />
 
       <form action="" class="d-flex flex-fill" @submit.prevent="">
 
@@ -58,16 +58,7 @@ export default {
     assign() {
       this.store.queryText = this.text
     },
-    toActiveCategory() {
-
-      console.log("AMBACABANANE")
-
-      /*     this.store.categories.forEach(category =>
-            (activeCategory === category.name || this.activeCategory === 'all') ? category.active = true : category.active = false
-          )
-        } */
-
-    },
+    
     mounted() {
     },
   }
