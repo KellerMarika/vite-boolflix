@@ -1,11 +1,10 @@
 <template>
   <ul class="flex-fill list-unstyled d-flex align-items-center">
-   <!--  @change="changeCategory()" -->
-
+    <!--  @change="changeCategory()" -->
+    <!--        @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false " -->
     <li class="list-group-item"
         v-for="category in store.categories"
-       @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false "
-        >
+        @click="toActiveCategory()">
       <label :for="category.name">{{ category.name }}
         <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory" />
       </label>
@@ -38,6 +37,12 @@ export default {
     }
   },
   methods: {
+
+    toActiveCategory(){
+      this.$emit("toActiveCategory",this.activeCategory)
+
+
+    },
     changeCategory() {
       if (activeCategory === category.name || activeCategory === "all") {
         category.active = true

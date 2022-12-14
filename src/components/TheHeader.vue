@@ -7,7 +7,7 @@
         <img src="#" alt="LOGO">
       </div>
 
-      <CategoriesNav />
+      <CategoriesNav @toActiveCategory="toActiveCategory" />
 
       <form action="" class="d-flex flex-fill" @submit.prevent="">
 
@@ -40,13 +40,14 @@
 
 import CategoriesNav from './CategoriesNav.vue';
 import { store } from '../store';
+
 export default {
   components: { CategoriesNav },
   data() {
     return {
       store,
-      text:""
-   
+      text: ""
+
     }
   },
   methods: {
@@ -54,13 +55,21 @@ export default {
       console.log("mi sa che ci vuole un emit!")
       /*  this.$emit(funzione,argomento) */
     },
-    assign(){
-      this.store.queryText= this.text
+    assign() {
+      this.store.queryText = this.text
+    },
+    toActiveCategory() {
 
-    }
+      console.log("AMBACABANANE")
 
-  },
-  mounted() {
+      /*     this.store.categories.forEach(category =>
+            (activeCategory === category.name || this.activeCategory === 'all') ? category.active = true : category.active = false
+          )
+        } */
+
+    },
+    mounted() {
+    },
   }
 }
 </script>
