@@ -7,7 +7,7 @@
         <img src="#" alt="LOGO">
       </div>
 
-      <CategoriesNav @setActiveCategory="setActiveCategory" />
+      <CategoriesNav />
 
       <form action="" class="d-flex flex-fill" @submit.prevent="">
 
@@ -20,7 +20,7 @@
             </label>
           </li>
           <li>
-            <button type="button" @click="assign()">
+            <button type="button" @click="onSearchClick(text)">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </li>
@@ -51,24 +51,13 @@ export default {
 
     }
   },
-  methods:
-  {
-    setActiveCategory(category) {
-      this.aaaCategory=category
-
-
+  methods: {
+    onSearchClick(text) {
+      this.$emit("fetchQueryResults", text)
     },
-    fetchQueriesResults(text) {
-      console.log("mi sa che ci vuole un emit!")
-      /*  this.$emit(funzione,argomento) */
-    },
-    assign() {
-      this.store.queryText = this.text
-    },
-
-    mounted() {
-    },
-  }
+  },
+  mounted() {
+  },
 }
 </script>
 

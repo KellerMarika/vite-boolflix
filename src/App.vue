@@ -1,7 +1,7 @@
 
 <template>
 
-	<TheHeader />
+	<TheHeader @fetchQueryResults="onSearchClick" />
 
 	<TheMain />
 
@@ -21,6 +21,10 @@ export default {
 		}
 	},
 	methods: {
+		onSearchClick(text) {
+			this.store.queryText=text
+			this.fetchLists(store.categories, store.queryText)
+		},
 		/**FUNZIONE CREA ARRAY
 		 * 
 		 * @param {array} categoriesList 
@@ -33,11 +37,10 @@ export default {
 
 			//ciclo sulle categorie
 			categoriesList.forEach((category, i) => {
-
-				if (category.active) {
+		
 					axios.get(`${rootApi_Url}${category.url}`, {
 						params: {
-							language:this.store.language,
+							language: this.store.language,
 							api_key: api_key,
 							query: text,
 							//  page:integer Specify which page to query.
@@ -50,7 +53,6 @@ export default {
 							category.list = (resp.data.results)
 							console.log(category.name, category.list)
 						});
-				}
 			});
 		}
 
