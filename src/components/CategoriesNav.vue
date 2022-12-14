@@ -1,19 +1,20 @@
 <template>
   <ul class="flex-fill list-unstyled d-flex align-items-center">
-
+   <!--  @change="changeCategory()" -->
 
     <li class="list-group-item"
         v-for="category in store.categories"
-        @change="activeCategory === category.name ? category.active = true : category.active = false">
+       @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false "
+        >
       <label :for="category.name">{{ category.name }}
         <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory" />
       </label>
 
-      <!--   </li>
+    </li>
     <label for="all"> all
       <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked>
     </label>
-    <li> -->
+    <li>
 
     </li>
 
@@ -33,13 +34,21 @@ export default {
   data() {
     return {
       store,
-      activeCategory: "movie",
-      activeCategorie: "",
+      activeCategory: "all",
     }
   },
   methods: {
+    changeCategory() {
+      if (activeCategory === category.name || activeCategory === "all") {
+        category.active = true
+      } else {
+        category.active = false
 
-    
+      }
+
+    }
+
+
 
   },
   mounted() {

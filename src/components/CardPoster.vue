@@ -1,12 +1,12 @@
 <template>
-  <div class="poster-card"
-      style="background-image: url(getMovieImgSrc)">
+  <div class="poster-card w-100 h-100"
+      @mouseover="showCardInfos? showCardInfos=false: showCardInfos=true"
+      :style="`background-image: url(${getMovieImgSrc})`">
 
   </div>
 </template>
 
 <script>
-/* import { store } from './store'; */
 
 export default {
   components: {},
@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss">
 .poster-card {
-  background-image: url(getMovieImgSrc);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 </style>

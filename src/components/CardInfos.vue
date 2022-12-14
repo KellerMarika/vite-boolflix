@@ -1,11 +1,11 @@
 <template>
   <div class="info-card">
-    <h4>{{ movie.name ? movie.name : movie.title }}</h4>
-    <h5>{{ movie.original_name ? movie.original_name : movie.original_title }}</h5>
+    <h4>{{getTitle}}</h4>
+    <h5>{{ getOriginalTitle}}</h5>
     <h6>{{ movie.original_language }}</h6>
     <div class="d-flex">
       <i v-for="index in 5"
-          class="fa-star" :class="index <= Math.ceil(movie.vote_average / 2) ? 'fa' : 'fa-regular'"></i>
+          class="fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
     </div>
   </div>
 </template>
@@ -44,10 +44,22 @@ export default {
   },
   computed: {
 
+    getTitle(){
+      let Title = this.movie.name ?? this.movie.title
+      return Title
+    },
+    getOriginalTitle(){
+      let originalTitle = this.movie.original_name ?? this.movie.original_title
+      return originalTitle
+    },
+
     getMovieImgSrc() {
       const rootUrl = "https://image.tmdb.org/t/p/"
       const imgSize = "w300"
       return `${rootUrl}${imgSize}${this.movie.poster_path}`
+    },
+    getVote() {
+      return Math.ceil(this.movie.vote_average / 2)
     }
   },
   mounted() {
@@ -56,9 +68,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-.poster-card{
-  background-image: url(getMovieImgSrc);
-}
 
 </style>

@@ -3,10 +3,7 @@
 
 	<TheHeader />
 
-	<main class="main-container">
-		<TheMain />
-	</main>
-
+	<TheMain />
 
 </template>
 
@@ -40,6 +37,7 @@ export default {
 				if (category.active) {
 					axios.get(`${rootApi_Url}${category.url}`, {
 						params: {
+							language:this.store.language,
 							api_key: api_key,
 							query: text,
 							//  page:integer Specify which page to query.
@@ -47,9 +45,9 @@ export default {
 					})
 						.then((resp) => {
 							/* array*/
-						/* 	category.moviesList = resp.data.results */
-				
-							category.list=(resp.data.results)
+							/* 	category.moviesList = resp.data.results */
+
+							category.list = (resp.data.results)
 							console.log(category.name, category.list)
 						});
 				}
@@ -69,6 +67,5 @@ export default {
 
 * {
 	border: 1px solid blue;
-	padding: 5px 0
 }
 </style>
