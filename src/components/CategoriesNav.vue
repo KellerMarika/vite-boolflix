@@ -22,7 +22,7 @@
       </li>
     </div>
 
-    <!-- try con funzione  -->
+    <!-- try con funzione this$set non è una funzione -->
     <div class="d-flex p-5">
       <li class="list-group-item " v-for="category in store.categories">
         <label :for="category.name">{{ category.name }}
@@ -32,10 +32,15 @@
       </li>
     </div>
 
-
-    <!-- @change="category.active = $event.target.checked" -->
-
-
+    <!-- try con watch -->
+    <div class="d-flex p-5">
+      <li class="list-group-item " v-for="category in store.categories">
+        <label :for="category.name">{{ category.name }}
+          <input type="radio" :id="category.name" name="category" :value="category.active"
+              @change2="category.active = $event.target.checked" />
+        </label>
+      </li>
+    </div>
 
     <!--  <label for="all"> all
       <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked>
@@ -51,6 +56,7 @@
 import { store } from '../store';
 
 export default {
+  /*   el:'CategoriesNav', */
   components: {},
   data() {
     return {
@@ -64,16 +70,19 @@ export default {
     onChange(id, $event) {
       this.store.categories.forEach(category => {
         if (category.name === id) {
-          Vue.set(category, 'active', $event.target.checked);
+          this.$set(category, 'active', $event.target.checked);
         } else {
-          Vue.set(category, 'active', false)
+          this.$set(category, 'active', false)
         }
       })
+    },
+  },
+  watch: {
+    selected(selected) {
+      this.store.categories.forEach((category, index) => {
+        category.name == selected ? category.active = true : category.active = false;
+      });
     }
-
-
-
-
   },
   mounted() {
   }
