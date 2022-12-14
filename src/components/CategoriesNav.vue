@@ -2,20 +2,39 @@
   <ul class="flex-fill list-unstyled d-flex align-items-center">
 
     <!-- @click="(activeCategory === category.name || activeCategory === 'all')?  category.active = true:  category.active = false " -->
-    <li class="list-group-item"
-        v-for="category in store.categories">
 
-      <label :for="category.name">{{ category.name }}
-        <input type="checkbox" :id="category.name" name="category" v-model="category.active" />
-      </label>
+    <!-- true o false ok, ma essendo checkbox non deseleziona le altre -->
+    <div class="d-flex p-5">
+      <li class="list-group-item "
+          v-for="category in store.categories">
+        <label :for="category.name">{{ category.name }}
+          <input type="checkbox" :id="category.name" name="category" v-model="category.active" />
+        </label>
+      </li>
+    </div>
 
-    </li>
+    <!-- applica "on" al checked, ma non applica "off" sulle altre radio (perchè?! è un radio!!!) -->
+    <div class="d-flex p-5">
+      <li class="list-group-item " v-for="category in store.categories">
+        <label :for="category.name">{{ category.name }}
+          <input type="radio" :id="category.name" name="category" v-model="category.active" />
+        </label>
+      </li>
+    </div>
 
-    <li v-for="category in store.categories">
-      <label :for="category.name">{{ category.name }}
-        <input type="radio" :id="category.name" name="category" v-model="category.active" />
-      </label>
-    </li>
+    <!-- try con funzione  -->
+    <div class="d-flex p-5">
+      <li class="list-group-item " v-for="category in store.categories">
+        <label :for="category.name">{{ category.name }}
+          <input type="radio" :id="category.name" name="category" :value="category.active"
+              @change="onChange(id, $event)" />
+        </label>
+      </li>
+    </div>
+
+
+    <!-- @change="category.active = $event.target.checked" -->
+
 
 
     <!--  <label for="all"> all
@@ -29,8 +48,6 @@
 </template>
 
 <script>
-/* import { all } from 'axios'; */
-import { all } from 'axios';
 import { store } from '../store';
 
 export default {
@@ -38,16 +55,21 @@ export default {
   data() {
     return {
       store,
-      activeCategory: "all",
+      /*   activeCategory: "all", */
+
     }
   },
   methods: {
 
-    toActiveCategory() {
-      this.$emit("toActiveCategory", this.activeCategory)
-
-
-    },
+    onChange(id, $event) {
+      this.store.categories.forEach(category => {
+        if (category.name === id) {
+         ?.set(category, 'active', $event.target.checked);
+        } else {
+         ?.set(category, 'active', false)
+        }
+      })
+    }
 
 
 
