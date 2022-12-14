@@ -1,16 +1,22 @@
 <template>
   <ul class="flex-fill list-unstyled d-flex align-items-center">
+    <!-- ciclo sulle categorie, creo un input per ogni categoria -->
+    <li class="list-group-item " v-for="category in store.categories">
+      <label :for="category.name">{{ category.name }}
+        <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory"
+            @change="onChange(activeCategory, $event)" />
+        <!-- funzione a cui passo l'elelmento cliccato e il nome della categoria -->
+      </label>
+    </li>
 
-
-    <!-- try con funzione this$set non è una funzione -->
-    <div class="d-flex p-5">
-      <li class="list-group-item " v-for="category in store.categories">
-        <label :for="category.name">{{ category.name }}
-          <input type="radio" :id="category.name" name="category" :value="category.active"
-              @change="onChange(category.name, $event)" />
-        </label>
-      </li>
-    </div>
+    <!-- più  l'opzione all. -->
+    <li class="list-group-item">
+      <label for="all"> all
+        <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked
+            @change="onChange(activeCategory, $event)" />
+     <!-- funzione a cui passo l'elelmento cliccato e il soggetto del v-model -->
+      </label>
+    </li>
   </ul>
   <div>
 
@@ -31,17 +37,18 @@ export default {
     }
   },
   methods: {
-    onChange(categoryName, $event) {
-      console.log("categoryName passed", categoryName);
+    onChange(categoryToActivate, $event) {
+      console.log("categoryToActivate passed", categoryToActivate);
 
       this.store.categories.forEach(category => {
-        if (category.name === categoryName) {
-          Vue.set(category, 'active', $event.target.checked);
+        if (category.name === categoryToActivate || categoryToActivate === "all") {
+          category.active = true
         } else {
-          Vue.set(category, 'active', false)
+          category.active = false
         }
       })
     },
+
   },
 
   mounted() {

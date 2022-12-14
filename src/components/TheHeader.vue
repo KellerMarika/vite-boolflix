@@ -7,7 +7,7 @@
         <img src="#" alt="LOGO">
       </div>
 
-      <CategoriesNav />
+      <CategoriesNav @setActiveCategory="setActiveCategory" />
 
       <form action="" class="d-flex flex-fill" @submit.prevent="">
 
@@ -46,11 +46,18 @@ export default {
   data() {
     return {
       store,
-      text: ""
+      text: "",
+      aaaCategory: "",
 
     }
   },
-  methods: {
+  methods:
+  {
+    setActiveCategory(category) {
+      this.aaaCategory=category
+
+
+    },
     fetchQueriesResults(text) {
       console.log("mi sa che ci vuole un emit!")
       /*  this.$emit(funzione,argomento) */
@@ -58,7 +65,7 @@ export default {
     assign() {
       this.store.queryText = this.text
     },
-    
+
     mounted() {
     },
   }
