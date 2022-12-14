@@ -31,14 +31,14 @@ export default {
 		 */
 		fetchLists(categoriesList, text) {
 
-			const baseApi_Url = 'https://api.themoviedb.org/3';
+			const rootApi_Url = 'https://api.themoviedb.org/3';
 			const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
 
 			//ciclo sulle categorie
 			categoriesList.forEach((category, i) => {
 
 				if (category.active) {
-					axios.get(`${baseApi_Url}${category.url}`, {
+					axios.get(`${rootApi_Url}${category.url}`, {
 						params: {
 							api_key: api_key,
 							query: text,

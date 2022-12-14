@@ -3,10 +3,10 @@
 
 
     <li class="list-group-item"
-        v-for="category in store.categories">
-      <!--   @change="activeCategory === category.name? category.active=true : category.active=false" -->
+        v-for="category in store.categories"
+        @change="activeCategory === category.name ? category.active = true : category.active = false">
       <label :for="category.name">{{ category.name }}
-        <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory"/>
+        <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory" />
       </label>
 
       <!--   </li>
@@ -34,11 +34,12 @@ export default {
     return {
       store,
       activeCategory: "movie",
-      /*   activeCategorie:all */
+      activeCategorie: "",
     }
   },
   methods: {
 
+    
 
   },
   mounted() {

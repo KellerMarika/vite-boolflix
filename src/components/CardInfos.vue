@@ -1,25 +1,30 @@
 <template>
-  <div></div>
+  <div class="info-card">
+    <h4>{{ movie.name ? movie.name : movie.title }}</h4>
+    <h5>{{ movie.original_name ? movie.original_name : movie.original_title }}</h5>
+    <h6>{{ movie.original_language }}</h6>
+    <div class="d-flex">
+      <i v-for="index in 5"
+          class="fa-star" :class="index <= Math.ceil(movie.vote_average / 2) ? 'fa' : 'fa-regular'"></i>
+    </div>
+  </div>
 </template>
 
 <script>
-/* import { store } from './store'; */
-
 export default {
   components: {},
   props: {
 
-/**movie:
-
+    /**movie:
 *@param {string|null} backdrop_path
 *@param {string} first_air_date 
 *@param {string} genre_ids
-*@param {integer} id //id =>ricerca
-*@param {string} name
+*@param {integer} id 
+*@param {string} name|title
 *@param {string} origin_country
 *@param {string} original_language
-*@param {string} original_name
-*@param {string} overview // trama
+*@param {string} original_name|original_title
+*@param {string} overview 
 *@param {integer} popularity
 *@param {string} poster_path
 *@param {integer} vote_average
@@ -36,7 +41,14 @@ export default {
     }
   },
   methods: {
+  },
+  computed: {
 
+    getMovieImgSrc() {
+      const rootUrl = "https://image.tmdb.org/t/p/"
+      const imgSize = "w300"
+      return `${rootUrl}${imgSize}${this.movie.poster_path}`
+    }
   },
   mounted() {
   }
@@ -44,5 +56,9 @@ export default {
 </script>
 
 <style lang="scss">
+
+.poster-card{
+  background-image: url(getMovieImgSrc);
+}
 
 </style>
