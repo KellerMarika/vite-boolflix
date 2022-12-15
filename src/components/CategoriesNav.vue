@@ -4,7 +4,7 @@
     <li class="list-group-item " v-for="category in store.categories">
       <label :for="category.name">{{ category.name }}
         <input type="radio" :id="category.name" name="category" :value="category.name" v-model="activeCategory"
-            @change="onChange(activeCategory, $event)" />
+            @change="onChange(activeCategory)" />
         <!-- funzione a cui passo l'elelmento cliccato e il nome della categoria -->
       </label>
     </li>
@@ -13,7 +13,7 @@
     <li class="list-group-item">
       <label for="all"> all
         <input type="radio" id="all" name="category" value="all" v-model="activeCategory" checked
-            @change="onChange(activeCategory, $event)" />
+            @change="onChange(activeCategory)" />
      <!-- funzione a cui passo l'elelmento cliccato e il soggetto del v-model -->
       </label>
     </li>
@@ -37,7 +37,7 @@ export default {
     }
   },
   methods: {
-    onChange(categoryToActivate, $event) {
+    onChange(categoryToActivate) {
       console.log("categoryToActivate passed", categoryToActivate);
 
       this.store.categories.forEach(category => {

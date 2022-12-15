@@ -3,24 +3,31 @@
   <main class="main-container">
 
     <template v-for="category in store.categories">
-      <h2>{{ category.name }}</h2>
+      <div v-if="category.active && store.queries.text" :id="category.name">
 
-      <div v-if="category.active && store.queries.text" :id="category.name"
-          class=" cards-container d-flex overflow-auto">
+        <nav class="d-flex">
+          <h2 class="px-2">{{ category.name }}</h2>
+          <GenresNav :category="category"/>
+        </nav>
 
 
-        <div class="overflow-auto position-relative"
-            :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
-            v-for="(movie, i) in category.list">
+        <div :id="category.name"
+            class=" cards-container d-flex overflow-auto">
 
-          <div class="card-body position-absolute top-0 bottom-0 w-100">
-            <CardInfos :movie="movie" />
 
-       <!--      <CardPoster :movie="movie" /> _____________________________-->
+          <!-- single card -->
+          <div class="overflow-auto position-relative"
+              :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
+              v-for="(movie) in category.list">
+            <!-- card-body -->
+            <div class="card-body position-absolute top-0 bottom-0 w-100">
+              <CardInfos :movie="movie" />
+
+              <!--      <CardPoster :movie="movie" /> _____________________________-->
+            </div>
           </div>
         </div>
       </div>
-
       <template v-else></template>
     </template>
   </main>
@@ -31,9 +38,10 @@
 import CardInfos from './CardInfos.vue';
 import CardPoster from './CardPoster.vue';
 import { store } from '../store';
+import GenresNav from './GenresNav.vue';
 
 export default {
-  components: { CardPoster, CardInfos },
+  components: { CardPoster, CardInfos, GenresNav },
 
   data() {
     return {
@@ -62,7 +70,7 @@ export default {
     }
 
     &:hover .card-body {
-/*       transform: rotateY(180deg) ;__________________ */
+      /*       transform: rotateY(180deg) ;__________________ */
 
     }
   }

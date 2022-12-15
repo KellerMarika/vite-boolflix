@@ -41,6 +41,8 @@ export default {
 				//ciclo sulle categorie
 				categoriesList.forEach((category) => {
 
+					category.genresList=[],
+
 					/* axios call 1  liste film*/
 					axios.get(`${this.store.rootApi_Url}${category.url}`, {
 						params: {
@@ -58,14 +60,14 @@ export default {
 						});
 
 					/* axios call 2 liste genere*/
-					this.fetchGendersList(category)
+					this.fetchGenresList(category)
 				});
 			}
 		},
 
-
-		fetchGendersList(category) {
+		fetchGenresList(category) {
 			let rowgenresArray = []
+			
 
 			axios.get(`${this.store.rootApi_Url}${category.genresUrl}`, {
 				params: {
@@ -76,9 +78,10 @@ export default {
 				.then((resp) => {
 					rowgenresArray = resp.data.genres
 
-					//ciclo in then (TO FIX)
+					//ciclo in then (TO FIX) 
 					rowgenresArray.forEach(gender => {
-						category.genresLists.push(gender.name);
+						category.genresList.push(gender.name);
+			
 					})
 				});
 		},
