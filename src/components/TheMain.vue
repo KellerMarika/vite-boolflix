@@ -3,22 +3,18 @@
   <main class="main-container">
 
     <template v-for="category in store.categories">
-      <div v-if="category.active" :id="category.name" class=" cards-container d-flex overflow-auto ">
+      <h2>{{ category.name }}</h2>
+      <div v-if="category.active && store.queries.text" :id="category.name"
+          class=" cards-container d-flex overflow-auto ">
 
 
-        <div class=""> {{ category.name }}</div>
-        <!--  @mouseover="showCardInfos? showCardInfos=false: showCardInfos=true" -->
         <div
-            :class="`${category.name}_card`" class=""
+            :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
             v-for="(movie, i) in category.list">
 
-          <CardInfos
-              v-if="showCardInfos"
-              :movie="movie" />
+          <CardInfos :movie="movie" v-if="showCardInfos" />
 
-          <CardPoster
-              v-else
-              :movie="movie" />
+          <CardPoster :movie="movie" v-else />
         </div>
       </div>
 
@@ -39,7 +35,7 @@ export default {
   data() {
     return {
       store,
-      showCardInfos: true,
+      showCardInfos: true
     }
   },
   methods: {
@@ -51,9 +47,14 @@ export default {
 </script>
 
 <style lang="scss">
+.cards-container {
 
-[class$="_card"] {
-  min-width: calc(100% /8);
-  aspect-ratio: 4/3;
+
+  [class$="_card"] {
+
+    min-width: calc(100% /5);
+    aspect-ratio: 2/3;
+    background-color: rgb(25, 156, 231);
+  }
 }
 </style>

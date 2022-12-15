@@ -2,7 +2,6 @@
   <div class="poster-card w-100 h-100"
       @mouseover="showCardInfos? showCardInfos=false: showCardInfos=true"
       :style="`background-image: url(${getMovieImgSrc})`">
-
   </div>
 </template>
 
@@ -11,7 +10,6 @@
 export default {
   components: {},
   props: {
-
     /**movie:
 *@param {string|null} backdrop_path
 *@param {string} first_air_date 

@@ -16,15 +16,19 @@
           <li class="list-group-item">
 
             <label for="query-text">
-              <input type="text" id="query-text" name="query-text" v-model="text">
+              <input type="text" id="query-text" name="query-text" v-model="queries.text">
             </label>
           </li>
           <li>
-            <button type="button" @click="onSearchClick(text)">
+            <button type="button" @click="onSearchClick(queries)">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </li>
-          <li>bambini</li>
+          <li>
+            <label for="query-age">parental control
+              <input type="checkbox" id="query-age" name="query-age" v-model="queries.adultContent">
+            </label>
+          </li>
 
           <li> <i class="fa-solid fa-bell"></i></li>
           <li>login</li>
@@ -46,14 +50,18 @@ export default {
   data() {
     return {
       store,
-      text: "",
-      aaaCategory: "",
+      queries:{
+        text: "",
+        adultContent:false
+      }
+      
+    
 
     }
   },
   methods: {
-    onSearchClick(text) {
-      this.$emit("fetchQueryResults", text)
+    onSearchClick(userQueries) {
+      this.$emit("fetchQueryResults", userQueries)
     },
   },
   mounted() {

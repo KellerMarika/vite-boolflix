@@ -3,7 +3,11 @@ import { reactive } from "vue";
 export const store = reactive({
 
   //parametri utente
-  queryText: "up",
+  queries:{
+    text: "up",
+    aduntContent:"false"
+  },
+ 
   queryId: null,
   page: null,
 

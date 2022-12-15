@@ -1,11 +1,12 @@
 <template>
   <div class="info-card">
-    <h4>{{getTitle}}</h4>
-    <h5>{{ getOriginalTitle}}</h5>
-    <h6>{{ movie.original_language }}</h6>
+    <h4>{{ getTitle }}</h4>
+    <h5>{{ getOriginalTitle }}</h5>
+    <i class="fi" :class="`fi-${ getFlag}`"></i>
     <div class="d-flex">
       <i v-for="index in 5"
           class="fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
+
     </div>
   </div>
 </template>
@@ -44,11 +45,11 @@ export default {
   },
   computed: {
 
-    getTitle(){
+    getTitle() {
       let Title = this.movie.name ?? this.movie.title
       return Title
     },
-    getOriginalTitle(){
+    getOriginalTitle() {
       let originalTitle = this.movie.original_name ?? this.movie.original_title
       return originalTitle
     },
@@ -58,8 +59,22 @@ export default {
       const imgSize = "w300"
       return `${rootUrl}${imgSize}${this.movie.poster_path}`
     },
+
     getVote() {
       return Math.ceil(this.movie.vote_average / 2)
+    },
+
+    getFlag() {
+      let movieFlag
+      if (this.movie.original_language === "en") {
+        movieFlag = "gb"
+      } else if (this.movie.original_language === "ja") {
+        movieFlag = "jp"
+      } else {
+        movieFlag = this.movie.original_language
+      }
+
+      return movieFlag
     }
   },
   mounted() {

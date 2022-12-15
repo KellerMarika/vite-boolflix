@@ -21,28 +21,32 @@ export default {
 		}
 	},
 	methods: {
-		onSearchClick(text) {
-			this.store.queryText=text
-			this.fetchLists(store.categories, store.queryText)
+		onSearchClick(userQueries) {
+			this.store.queries.text = userQueries.text
+			this.store.queries.aduntContent = userQueries.aduntContent
+			this.fetchLists(store.categories, store.queries)
 		},
 		/**FUNZIONE CREA ARRAY
 		 * 
 		 * @param {array} categoriesList 
 		 * @param {string} text 
 		 */
-		fetchLists(categoriesList, text) {
+		fetchLists(categoriesList, queries) {
 
-			const rootApi_Url = 'https://api.themoviedb.org/3';
-			const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
+			if (queries.text) {
 
-			//ciclo sulle categorie
-			categoriesList.forEach((category, i) => {
-		
+				const rootApi_Url = 'https://api.themoviedb.org/3';
+				const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
+
+				//ciclo sulle categorie
+				categoriesList.forEach((category, i) => {
+
 					axios.get(`${rootApi_Url}${category.url}`, {
 						params: {
 							language: this.store.language,
 							api_key: api_key,
-							query: text,
+							query: queries.text,
+							include_adult: queries.aduntContent
 							//  page:integer Specify which page to query.
 						}
 					})
@@ -53,14 +57,15 @@ export default {
 							category.list = (resp.data.results)
 							console.log(category.name, category.list)
 						});
-			});
+				});
+			}
 		}
 
-	},
-	mounted() {
-		this.fetchLists(store.categories, store.queryText)
+		},
+		mounted() {
+			this.fetchLists(store.categories, store.queries)
+		}
 	}
-}
 </script>
 
 
