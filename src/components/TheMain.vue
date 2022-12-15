@@ -16,7 +16,7 @@
           <div class="card-body position-absolute top-0 bottom-0 w-100">
             <CardInfos :movie="movie" />
 
-            <CardPoster :movie="movie" />
+       <!--      <CardPoster :movie="movie" /> _____________________________-->
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default {
     }
 
     &:hover .card-body {
-      transform: rotateY(180deg) ;
+/*       transform: rotateY(180deg) ;__________________ */
 
     }
   }

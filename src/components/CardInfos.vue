@@ -1,9 +1,13 @@
 <template>
-  <div class="info-card  w-100 h-100  position-absolute">
-    <h4>{{ getTitle }}</h4>
+  <div class="info-card  w-100 h-100  position-absolute ">
+    <h4 class="text-center">{{ getTitle }}</h4>
     <h5 v-if="getTitle !== getOriginalTitle">{{ getOriginalTitle }}</h5>
     <template v-else />
-
+    <div class="try">
+      <h6 class="text" @click="fetchMovieInfos"> <span class="cast p-2">cast:</span></h6>
+      <h6 class="text" @click="fetchMovieInfos"> <span class="lang">lingue disponibili:</span></h6>
+      <h6 class="text" @click="fetchMovieInfos"> <span class="genres">generi:</span></h6>
+    </div>
     <div
         @mouseover="isHovering = true"
         @mouseout="isHovering = false"
@@ -17,12 +21,12 @@
     <div class="d-flex">
       <i v-for="index in 5"
           class="fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
-
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   components: {},
   props: {
@@ -50,10 +54,45 @@ export default {
   data() {
     return {
       isHovering: false
-
     }
   },
   methods: {
+    fetchMovieInfos(e) {
+      let rowInfosArray
+      let infosList = []
+      console.log(e.target.closest('.text'))
+
+      const rootApi_Url = 'https://api.themoviedb.org/3';
+      const movieUrl = "/movie/"
+      const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
+      const movieId = this.movie.id
+
+      axios.get(`${rootApi_Url}${movieUrl}${movieId}`, {
+        params: {
+          api_key: api_key,
+          // append_to_response (string) Append requests within the same namespace to the response.
+        }
+      })
+        .then((resp) => {
+
+          if (e.target.classList.contains("lang")) {
+            rowInfosArray = resp.data.spoken_languages
+
+          } else if (e.target.classList.contains("cast")) {
+            rowInfosArray = resp.data.production_companies
+            //max 5 actors
+            if( rowInfosArray.length>5){rowInfosArray.length=5}
+
+          } else if (e.target.classList.contains("genres")) {
+            rowInfosArray = resp.data.genres
+          }
+          rowInfosArray.forEach(info => {
+            infosList.push(info.name)
+          });
+          e.target.closest('.text').append(infosList.toString())
+        });
+    }
+
   },
   computed: {
 
@@ -85,9 +124,10 @@ export default {
       } else {
         movieFlag = this.movie.original_language
       }
-
       return movieFlag
-    }
+    },
+
+
   },
   mounted() {
   }
@@ -96,12 +136,14 @@ export default {
 
 <style lang="scss">
 .info-card {
-  /* retro non trasparente */
+  // retro non trasparente 
+
+  /* _________________________________________
   backface-visibility: hidden;
   background: rgb(122, 100, 156);
-  /* faccia in giu! */
+  // faccia in giu! 
   transform: rotateY(180deg);
-
+ *___________________________________________/
 
   /* overview */
   .text-truncate-container {
