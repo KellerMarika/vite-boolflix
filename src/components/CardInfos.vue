@@ -4,9 +4,17 @@
     <h5 v-if="getTitle !== getOriginalTitle">{{ getOriginalTitle }}</h5>
     <template v-else />
     <div class="try">
-      <h6 class="text" @click="fetchMovieInfos"> <span class="cast p-2">cast:</span></h6>
-      <h6 class="text" @click="fetchMovieInfos"> <span class="lang">lingue disponibili:</span></h6>
-      <h6 class="text" @click="fetchMovieInfos"> <span class="genres">generi:</span></h6>
+      <h6 class="text" @click="fetchMovieInfos">
+        <span class="cast p-2">cast:</span>
+      </h6>
+
+      <h6 class="text" @click="fetchMovieInfos">
+        <span class="lang">lingue disponibili:</span>
+      </h6>
+
+      <h6 class="text" @click="fetchMovieInfos">
+        <span class="genres">generi:</span>
+      </h6>
     </div>
     <div
         @mouseover="isHovering = true"
@@ -60,7 +68,6 @@ export default {
     fetchMovieInfos(e) {
       let rowInfosArray
       let infosList = []
-      console.log(e.target.closest('.text'))
 
       const rootApi_Url = 'https://api.themoviedb.org/3';
       const movieUrl = "/movie/"
@@ -81,7 +88,7 @@ export default {
           } else if (e.target.classList.contains("cast")) {
             rowInfosArray = resp.data.production_companies
             //max 5 actors
-            if( rowInfosArray.length>5){rowInfosArray.length=5}
+            if (rowInfosArray.length > 5) { rowInfosArray.length = 5 }
 
           } else if (e.target.classList.contains("genres")) {
             rowInfosArray = resp.data.genres
