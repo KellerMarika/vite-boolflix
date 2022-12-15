@@ -4,17 +4,20 @@
 
     <template v-for="category in store.categories">
       <h2>{{ category.name }}</h2>
+
       <div v-if="category.active && store.queries.text" :id="category.name"
-          class=" cards-container d-flex overflow-auto ">
+          class=" cards-container d-flex overflow-auto">
 
 
-        <div
+        <div class="overflow-auto position-relative"
             :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
             v-for="(movie, i) in category.list">
 
-          <CardInfos :movie="movie" v-if="showCardInfos" />
+          <div class="card-body position-absolute top-0 bottom-0 w-100">
+            <CardInfos :movie="movie" />
 
-          <CardPoster :movie="movie" v-else />
+            <CardPoster :movie="movie" />
+          </div>
         </div>
       </div>
 
@@ -35,7 +38,7 @@ export default {
   data() {
     return {
       store,
-      showCardInfos: true
+
     }
   },
   methods: {
@@ -49,12 +52,19 @@ export default {
 <style lang="scss">
 .cards-container {
 
-
   [class$="_card"] {
-
     min-width: calc(100% /5);
     aspect-ratio: 2/3;
-    background-color: rgb(25, 156, 231);
+
+    .card-body {
+      transform-style: preserve-3d;
+      transition: all 0.8s ease;
+    }
+
+    &:hover .card-body {
+      transform: rotateY(180deg) ;
+
+    }
   }
 }
 </style>

@@ -1,8 +1,19 @@
 <template>
-  <div class="info-card">
+  <div class="info-card  w-100 h-100  position-absolute">
     <h4>{{ getTitle }}</h4>
-    <h5>{{ getOriginalTitle }}</h5>
-    <i class="fi" :class="`fi-${ getFlag}`"></i>
+    <h5 v-if="getTitle !== getOriginalTitle">{{ getOriginalTitle }}</h5>
+    <template v-else />
+
+    <div
+        @mouseover="isHovering = true"
+        @mouseout="isHovering = false"
+        :class="(isHovering) ? 'overflow-auto' : 'text-truncate-container'">
+
+      <p class="overview">
+        {{ movie.overview }}</p>
+    </div>
+
+    <i class="fi" :class="`fi-${getFlag}`"></i>
     <div class="d-flex">
       <i v-for="index in 5"
           class="fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
@@ -38,6 +49,7 @@ export default {
   },
   data() {
     return {
+      isHovering: false
 
     }
   },
@@ -83,5 +95,29 @@ export default {
 </script>
 
 <style lang="scss">
+.info-card {
+  /* retro non trasparente */
+  backface-visibility: hidden;
+  background: rgb(122, 100, 156);
+  /* faccia in giu! */
+  transform: rotateY(180deg);
 
+
+  /* overview */
+  .text-truncate-container {
+    width: 250px;
+
+
+    p {
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .text-truncate-container:hover {
+      overflow: auto;
+    }
+  }
+}
 </style>

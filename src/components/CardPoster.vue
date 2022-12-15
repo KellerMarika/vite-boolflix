@@ -1,5 +1,5 @@
 <template>
-  <div class="poster-card w-100 h-100"
+  <div class="poster-card w-100 h-100  position-absolute"
       @mouseover="showCardInfos? showCardInfos=false: showCardInfos=true"
       :style="`background-image: url(${getMovieImgSrc})`">
   </div>
@@ -41,7 +41,7 @@ export default {
 
     getMovieImgSrc() {
       const rootUrl = "https://image.tmdb.org/t/p/"
-      const imgSize = "w300"
+      const imgSize = "w342"
       return `${rootUrl}${imgSize}${this.movie.poster_path}`
     }
   },
@@ -54,5 +54,7 @@ export default {
 .poster-card {
   background-size: cover;
   background-repeat: no-repeat;
+  backface-visibility: hidden;
+  background: red;
 }
 </style>
