@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import {store} from "../store"
 export default {
   components: {},
   props: {
@@ -61,22 +62,23 @@ export default {
   },
   data() {
     return {
+      store,
       isHovering: false
+
     }
   },
   methods: {
     fetchMovieInfos(e) {
       let rowInfosArray
       let infosList = []
-
-      const rootApi_Url = 'https://api.themoviedb.org/3';
+     
       const movieUrl = "/movie/"
-      const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
+
       const movieId = this.movie.id
 
-      axios.get(`${rootApi_Url}${movieUrl}${movieId}`, {
+      axios.get(`${this.store.rootApi_Url}${movieUrl}${movieId}`, {
         params: {
-          api_key: api_key,
+          api_key: this.store.api_key,
           // append_to_response (string) Append requests within the same namespace to the response.
         }
       })

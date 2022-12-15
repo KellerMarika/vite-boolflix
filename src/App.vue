@@ -26,7 +26,7 @@ export default {
 			this.store.queries.aduntContent = userQueries.aduntContent
 			this.fetchLists(store.categories, store.queries)
 		},
-		/**FUNZIONE CREA ARRAY
+		/**FUNZIONE CREA ARRAY DEI FILM PER CIASCUNA CATEGORIA IN STORE.ATEGORIES
 		 * 
 		 * @param {array} categoriesList 
 		 * @param {string} text 
@@ -34,17 +34,13 @@ export default {
 		fetchLists(categoriesList, queries) {
 
 			if (queries.text) {
-
-				const rootApi_Url = 'https://api.themoviedb.org/3';
-				const api_key = 'd45a5c4b7707cf9506c7e8895615d73f';
-
 				//ciclo sulle categorie
 				categoriesList.forEach((category, i) => {
 
-					axios.get(`${rootApi_Url}${category.url}`, {
+					axios.get(`${this.store.rootApi_Url}${category.url}`, {
 						params: {
 							language: this.store.language,
-							api_key: api_key,
+							api_key: this.store.api_key,
 							query: queries.text,
 							include_adult: queries.aduntContent
 							//  page:integer Specify which page to query.
@@ -59,11 +55,40 @@ export default {
 						});
 				});
 			}
+		},
+
+		
+		fetchGenresList(){
+		//ciclo sulle categorie
+		categoriesList.forEach((category, i) => {
+
+axios.get(`${this.store.rootApi_Url}${category.url}`, {
+	params: {
+		language: this.store.language,
+		api_key: this.store.api_key,
+		query: queries.text,
+		include_adult: queries.aduntContent
+		//  page:integer Specify which page to query.
+	}
+})
+	.then((resp) => {
+		/* array*/
+		/* 	category.moviesList = resp.data.results */
+
+		category.list = (resp.data.results)
+		console.log(category.name, category.list)
+	});
+});
+			
 		}
+
 
 		},
 		mounted() {
 			this.fetchLists(store.categories, store.queries)
+		},
+		created(){
+		
 		}
 	}
 </script>
