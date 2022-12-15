@@ -26,17 +26,22 @@ export default {
 			this.store.queries.aduntContent = userQueries.aduntContent
 			this.fetchLists(store.categories, store.queries)
 		},
-		/**FUNZIONE CREA ARRAY DEI FILM PER CIASCUNA CATEGORIA IN STORE.ATEGORIES
+
+		/**FUNZIONE CREA ARRAY DEI FILM PER CIASCUNA CATEGORIA IN STORE.CATEGORIES
+		 * 
+		 * 
 		 * 
 		 * @param {array} categoriesList 
 		 * @param {string} text 
 		 */
+
 		fetchLists(categoriesList, queries) {
-
 			if (queries.text) {
-				//ciclo sulle categorie
-				categoriesList.forEach((category, i) => {
 
+				//ciclo sulle categorie
+				categoriesList.forEach((category) => {
+
+					/* axios call 1  liste film*/
 					axios.get(`${this.store.rootApi_Url}${category.url}`, {
 						params: {
 							language: this.store.language,
@@ -47,50 +52,45 @@ export default {
 						}
 					})
 						.then((resp) => {
-							/* array*/
-							/* 	category.moviesList = resp.data.results */
 
 							category.list = (resp.data.results)
 							console.log(category.name, category.list)
 						});
+
+					/* axios call 2 liste genere*/
+					this.fetchGendersList(category)
 				});
 			}
 		},
 
-		
-		fetchGenresList(){
-		//ciclo sulle categorie
-		categoriesList.forEach((category, i) => {
 
-axios.get(`${this.store.rootApi_Url}${category.url}`, {
-	params: {
-		language: this.store.language,
-		api_key: this.store.api_key,
-		query: queries.text,
-		include_adult: queries.aduntContent
-		//  page:integer Specify which page to query.
-	}
-})
-	.then((resp) => {
-		/* array*/
-		/* 	category.moviesList = resp.data.results */
+		fetchGendersList(category) {
+			let rowgenresArray = []
 
-		category.list = (resp.data.results)
-		console.log(category.name, category.list)
-	});
-});
-			
-		}
+			axios.get(`${this.store.rootApi_Url}${category.genresUrl}`, {
+				params: {
+					language: this.store.language,
+					api_key: this.store.api_key,
+				}
+			})
+				.then((resp) => {
+					rowgenresArray = resp.data.genres
 
-
+					//ciclo in then (TO FIX)
+					rowgenresArray.forEach(gender => {
+						category.genresLists.push(gender.name);
+					})
+				});
 		},
-		mounted() {
-			this.fetchLists(store.categories, store.queries)
-		},
-		created(){
-		
-		}
+	},
+	mounted() {
+		this.fetchLists(store.categories, store.queries)
+
+	},
+	created() {
+
 	}
+}
 </script>
 
 

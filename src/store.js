@@ -16,16 +16,21 @@ export const store = reactive({
     {
       name: "movie",
       url: "/search/movie",
+      
       active: true,
       include_adult: true,
-      list: []
+      list: [],
+      genresUrl:"/genre/movie/list",
+      genresLists:[]
     },
     {
       name: "tv",
-      url: "/search/tv",
+      url: "/search/tv", 
       active: true,
       include_adult: true,
-      list: []
+      list: [],
+      genresUrl:"/genre/tv/list",
+      genresLists:[],
     },
   ],
 
