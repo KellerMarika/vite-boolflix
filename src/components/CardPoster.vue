@@ -51,7 +51,10 @@ export default {
 
 <style lang="scss">
 .poster-card {
+  box-shadow: 0px 0px 5px 2px inset rgba(7, 0, 1, 0.801);
+
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   backface-visibility: hidden;
   background: red;

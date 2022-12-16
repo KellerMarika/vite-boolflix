@@ -1,41 +1,54 @@
 <template>
-  <div class="info-card  w-100 h-100  position-absolute ">
-    <h4 class="text-center">{{ getTitle }}</h4>
-    <h5 v-if="getTitle !== getOriginalTitle">{{ getOriginalTitle }}</h5>
-    <template v-else />
-    <div class="try">
-      <h6 class="text" @click="fetchMovieInfos">
-        <span class="cast p-2">cast:</span>
-      </h6>
+  <div class="info-card bg-dark w-100 h-100 position-absolute d-flex flex-column p-4">
 
-      <h6 class="text" @click="fetchMovieInfos">
-        <span class="lang">lingue disponibili:</span>
-      </h6>
+    <!-- titles -->
+    <hgroup class="text-center">
+      <h3 class="title text-uppercase">{{ getTitle }}</h3>
 
-      <h6 class="text" @click="fetchMovieInfos">
-        <span class="genres">generi:</span>
-      </h6>
+      <h4 class="subtitle m-0"
+          v-if="getTitle !== getOriginalTitle">( {{ getOriginalTitle }} )</h4>
+      <template v-else />
+    </hgroup>
+    <i class="fs-5 my-2 fi  align-self-center" :class="`fi-${getFlag}`"></i>
+    <div class="infos-container flex-fill">
+      <p class="text" @click="fetchMovieInfos">
+        <i class=" cast">cast: </i><br>
+      </p>
+
+      <p class="text" @click="fetchMovieInfos">
+        <i class=" lang">lingue disponibili: </i><br>
+      </p>
+
+      <p class="text" @click="fetchMovieInfos">
+        <i class=" genres">generi: </i><br>
+      </p>
+
+      <!-- overview -->
+      <div
+          @mouseover="isHovering = true"
+          @mouseout="isHovering = false"
+          :class="(isHovering) ? 'overflow-auto' : 'text-truncate-container'">
+
+        <p class="text"> <i class=" overview">Trama:</i><br>
+          {{ movie.overview }}</p>
+      </div>
     </div>
-    <div
-        @mouseover="isHovering = true"
-        @mouseout="isHovering = false"
-        :class="(isHovering) ? 'overflow-auto' : 'text-truncate-container'">
 
-      <p class="overview">
-        {{ movie.overview }}</p>
-    </div>
-
-    <i class="fi" :class="`fi-${getFlag}`"></i>
-    <div class="d-flex">
+    <!-- vote -->
+    <div class="vote-container d-flex fs-5">
       <i v-for="index in 5"
-          class="fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
+          class=" fa-star" :class="index <= getVote ? 'fa' : 'fa-regular'"></i>
     </div>
+
+
+    <!--    <div>{{ movie.genre_ids }}</div> -->
   </div>
+
 </template>
 
 <script>
 import axios from "axios";
-import {store} from "../store"
+import { store } from "../store"
 export default {
   components: {},
   props: {
@@ -71,7 +84,7 @@ export default {
     fetchMovieInfos(e) {
       let rowInfosArray
       let infosList = []
-     
+
       const movieUrl = "/movie/"
 
       const movieId = this.movie.id
@@ -79,7 +92,7 @@ export default {
       axios.get(`${this.store.rootApi_Url}${movieUrl}${movieId}`, {
         params: {
           api_key: this.store.api_key,
-          // append_to_response (string) Append requests within the same namespace to the response.
+
         }
       })
         .then((resp) => {
@@ -107,11 +120,11 @@ export default {
 
     getTitle() {
       let Title = this.movie.name ?? this.movie.title
-      return Title
+      return Title.toLowerCase()
     },
     getOriginalTitle() {
       let originalTitle = this.movie.original_name ?? this.movie.original_title
-      return originalTitle
+      return originalTitle.toLowerCase()
     },
 
     getMovieImgSrc() {
@@ -144,20 +157,27 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../styles/partials/variables" as *;
+
 .info-card {
   // retro non trasparente 
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0px 0px 4px 1px inset rgba(7, 0, 1, 0.801);
 
-  /* _________________________________________
   backface-visibility: hidden;
-  background: rgb(122, 100, 156);
+
   // faccia in giu! 
-  transform: rotateY(180deg);
- *___________________________________________/
+  /*   transform: rotateY(180deg); _____________________*/
 
   /* overview */
+  hgroup {
+    flex-basis: 100px;
+    flex-shrink: 0;
+    
+  }
+
   .text-truncate-container {
     width: 250px;
-
 
     p {
       -webkit-line-clamp: 3;
@@ -168,7 +188,18 @@ export default {
 
     .text-truncate-container:hover {
       overflow: auto;
+
     }
   }
+
+  /* card-footer */
+  .vote-container {
+    .fa-star {
+      color: $secondary_color
+    }
+  }
+
+
 }
+
 </style>

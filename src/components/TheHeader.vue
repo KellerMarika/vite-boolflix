@@ -1,37 +1,39 @@
 <template>
 
-  <header>
-    <nav class="container d-flex align-items-center">
+  <header class="pt-3">
+    <nav class="container-fluid d-flex align-items-center h-100 text-light ">
 
-      <div class="logo">
-        <img src="#" alt="LOGO">
-      </div>
+      <img src="../assets/Logonetflix.png" alt="logo netfix" class="img-fluid h-100">
 
       <CategoriesNav />
 
-      <form action="" class="d-flex flex-fill" @submit.prevent="">
+      <form action="" class="d-flex align-items-end" @submit.prevent="">
 
-        <ul class="list-unstyled d-flex align-items-center">
+        <ul class="list-unstyled d-flex">
 
           <li class="list-group-item">
+            <label class="py-1 ps-2"
+                for="query-text ">
+              <input class="bg-transparent rounded-1"
 
-            <label for="query-text">
-              <input type="text" id="query-text" name="query-text" v-model="queries.text">
+                  type="text" id="query-text" name="query-text" v-model="queries.text">
             </label>
-          </li>
-          <li>
-            <button type="button" @click="onSearchClick(queries)">
+            <button class="btn btn-dark me-4"
+                type="button" @click="onSearchClick(queries)">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </li>
-          <li>
-            <label for="query-age">parental control
-              <input type="checkbox" id="query-age" name="query-age" v-model="queries.adultContent">
+          <li class=" position-relative ">
+            <input class="position-absolute start-50 opacity-0"
+                type="checkbox" id="query-age" name="query-age" v-model="queries.adultContent">
+
+            <label class="py-2 px-2" for="query-age">parental control
+
             </label>
           </li>
 
-          <li> <i class="fa-solid fa-bell"></i></li>
-          <li>login</li>
+          <li class="py-2 px-2"> <i class="fa-solid fa-bell"></i></li>
+          <li class="py-2 px-2">login</li>
         </ul>
       </form>
     </nav>
@@ -50,12 +52,12 @@ export default {
   data() {
     return {
       store,
-      queries:{
+      queries: {
         text: "",
-        adultContent:false
+        adultContent: false
       }
-      
-    
+
+
 
     }
   },
@@ -70,5 +72,12 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../styles/partials/variables" as *;
 
+header {
+  height: 70px;
+
+
+
+}
 </style>

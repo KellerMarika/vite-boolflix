@@ -41,23 +41,23 @@ export default {
 				//ciclo sulle categorie
 				categoriesList.forEach((category) => {
 
-					category.genresList=[],
+					category.genresList = [],
 
-					/* axios call 1  liste film*/
-					axios.get(`${this.store.rootApi_Url}${category.url}`, {
-						params: {
-							language: this.store.language,
-							api_key: this.store.api_key,
-							query: queries.text,
-							include_adult: queries.aduntContent
-							//  page:integer Specify which page to query.
-						}
-					})
-						.then((resp) => {
+						/* axios call 1  liste film*/
+						axios.get(`${this.store.rootApi_Url}${category.url}`, {
+							params: {
+								language: this.store.language,
+								api_key: this.store.api_key,
+								query: queries.text,
+								include_adult: queries.aduntContent
+								//  page:integer Specify which page to query.
+							}
+						})
+							.then((resp) => {
 
-							category.list = (resp.data.results)
-							console.log(category.name, category.list)
-						});
+								category.list = (resp.data.results)
+								//console.log(category.name, category.list)
+							});
 
 					/* axios call 2 liste genere*/
 					this.fetchGenresList(category)
@@ -67,7 +67,7 @@ export default {
 
 		fetchGenresList(category) {
 			let rowgenresArray = []
-			
+
 
 			axios.get(`${this.store.rootApi_Url}${category.genresUrl}`, {
 				params: {
@@ -78,29 +78,63 @@ export default {
 				.then((resp) => {
 					rowgenresArray = resp.data.genres
 
+
 					//ciclo in then (TO FIX) 
 					rowgenresArray.forEach(gender => {
-						category.genresList.push(gender.name);
-			
+
+						const newGender = {
+							name: gender.name,
+							id: gender.id
+						}
+
+						category.genresList.push(newGender);
+						/* 		this.onRefreshResetGendersFilterToAll() */
+						category.activeGenres = category.genresList
+
 					})
 				});
+		},
+		onRefreshResetGendersFilterToAll() {
+
+			this.store.categories.forEach(category => {
+
+				category.activeGenres = category.genresList
+
+			});
+
+
 		},
 	},
 	mounted() {
 		this.fetchLists(store.categories, store.queries)
-
 	},
 	created() {
-
 	}
 }
 </script>
-
-
 <style lang="scss">
 @use "./styles/generic.scss";
+@use "./styles/partials/variables" as *;
 
 * {
-	border: 1px solid blue;
+	color: antiquewhite;
+
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+input:checked+label {
+	color: $primary_color;
+
+}
+
+input:hover+label,
+label:hover,
+i:hover {
+	text-shadow: 0px 0px 25px $primary_color ;
+	color: $secondary_color;
+}
+
+i:active {
+	color: $primary_color;
 }
 </style>

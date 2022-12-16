@@ -1,22 +1,28 @@
 <template>
-  <ul class="flex-fill list-unstyled d-flex align-items-center">
 
+  <ul class="flex-fill list-unstyled d-flex flex-wrap align-items-center justify-content-between pe-3">
     <!-- GENDERS -->
     <!-- ciclo sulle categorie, creo un input per ogni categoria -->
-    <li class="list-group-item " v-for=" gender in category.genresList">
-      <label :for="gender">{{ gender }}
-        <input type="checkbox" :id="gender" name="Genres" :value="gender" v-model="category.activeGenres"
-            :checked="activeAll"
-            @change="onChange(category.activeGenres, gender)" />
-      </label>
+
+    <li class="list-group-item position-relative" 
+    v-for=" gender in category.genresList">
+
+      <input class=" position-absolute start-50 opacity-0 "
+      type="checkbox" :id="gender.name" name="Genres" :value="gender.name" v-model="category.activeGenres"
+          @change="onChange(category.activeGenres, gender.name)" />
+
+      <label class="px-3 py-1"
+      :for="gender.name">{{ gender.name }}</label>
     </li>
 
     <!-- ALL -->
-    <li class="list-group-item">
-      <label for="all"> all
-        <input type="checkbox" id="all" name="activeAll" v-model="activeAll"
+    <li class="list-group-item position-relative">
+
+      <input class=" position-absolute opacity-0 "
+      type="checkbox" id="all" name="activeAll" v-model="activeAll"
             @change="setAllGenresActive(category.activeGenres)" />
-      </label>
+
+      <label for="all" class="px-3 py-1 text-capitalize"> all</label>
     </li>
   </ul>
   <div>
@@ -52,7 +58,6 @@ export default {
   methods: {
     onChange(genresToActivate, gender) {
 
-      /*       this.$emit(genresToActivate) */
       if (this.activeAll === true) {
 
         this.activeAll = false
@@ -77,22 +82,23 @@ export default {
       console.log("lista", this.category.genresList.length)
       console.log("filter", genresToActivate.length)
     },
-    onRefreshResetGendersFilterToAll() {
-      this.store.categories.forEach(category => {
-        category.activeGenres = category.genresList
-      });
 
-    },
+
 
   },
 
   mounted() {
-    this.onRefreshResetGendersFilterToAll()
+    /* this.onRefreshResetGendersFilterToAll() */
   }
 
 }
 </script>
 
 <style lang="scss">
+#all{
+  left: 50%;
+  top:50%;
+  transform: translateX(-50%) translateY(-50%) scale(150%);
 
+}
 </style>

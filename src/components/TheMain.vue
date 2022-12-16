@@ -1,18 +1,25 @@
 <template>
 
-  <main class="main-container">
+  <main class="main-container mt-4">
 
     <template v-for="category in store.categories">
-      <div v-if="category.active && store.queries.text" :id="category.name">
 
-        <nav class="d-flex">
-          <h2 class="px-2">{{ category.name }}</h2>
-          <GenresNav :category="category"/>
+      <div class="mb-2"
+          :id="`${category.name}-container`"
+          v-if="category.active && store.queries.text">
+
+
+        <nav class="py-3 px-3"
+            :class="`${category.name}-nav`">
+
+          <h2 class="text-capitalize fs-1 p-2">{{ category.name }}</h2>
+          <!-- emit con  -->
+          <GenresNav :category="category" />
         </nav>
 
 
         <div :id="category.name"
-            class=" cards-container d-flex overflow-auto">
+            class=" cards-container d-flex overflow-auto mb-5">
 
 
           <!-- single card -->
@@ -23,9 +30,11 @@
             <div class="card-body position-absolute top-0 bottom-0 w-100">
               <CardInfos :movie="movie" />
 
-              <!--      <CardPoster :movie="movie" /> _____________________________-->
+          <!--     <CardPoster :movie="movie" /> -->
             </div>
+
           </div>
+
         </div>
       </div>
       <template v-else></template>
@@ -50,6 +59,33 @@ export default {
     }
   },
   methods: {
+    /*  fetch(arrayActiveFilters, movieIds) {
+       //console.log("array", arrayActiveFilters)
+       //console.log("ids", movieIds)
+ 
+       if (movieIds) {
+         arrayActiveFilters.forEach(gender => {
+           console.log(gender.id)
+           movieIds.forEach(id => {
+ 
+             if (gender.id === id) {
+               console.log(id, true)
+               return true
+             } else {
+               console.log(false)
+               return false
+             }
+           });
+ 
+         });
+       }else{ return false}
+ 
+ 
+ 
+ 
+     } */
+  },
+  computed: {
 
   },
   mounted() {
@@ -58,10 +94,19 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../styles/partials/variables" as *;
+
+[id$=-container] {
+  box-shadow: -1px -1px 10px 1px $dark_color;
+
+}
+
 .cards-container {
 
+  box-shadow: 0px 0px 5000px 50px inset $dark_color;
+
   [class$="_card"] {
-    min-width: calc(100% /5);
+    min-width: calc(100% /6);
     aspect-ratio: 2/3;
 
     .card-body {
@@ -70,7 +115,7 @@ export default {
     }
 
     &:hover .card-body {
-      /*       transform: rotateY(180deg) ;__________________ */
+     /*  transform: rotateY(180deg); */
 
     }
   }

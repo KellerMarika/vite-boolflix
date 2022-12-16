@@ -4,7 +4,7 @@ export const store = reactive({
 
   //parametri utente
   queries: {
-    text: "up",
+    text: "red",
     aduntContent: "false"
   },
   rootApi_Url: 'https://api.themoviedb.org/3',
@@ -19,19 +19,23 @@ export const store = reactive({
       active: true,
       include_adult: true,
       list: [],
-      genresUrl:"/genre/movie/list",
-      genresList:[],
+      genresUrl: "/genre/movie/list",
+      genresList: [],
       activeGenres: [],
+
+
     },
     {
       name: "tv",
-      url: "/search/tv", 
+      url: "/search/tv",
       active: true,
       include_adult: true,
       list: [],
-      genresUrl:"/genre/tv/list",
-      genresList:[],
+      genresUrl: "/genre/tv/list",
+      genresList: [],
       activeGenres: []
+
+
     },
   ],
 
