@@ -15,7 +15,7 @@
 
           <h2 class="text-capitalize fs-1 p-2">{{ category.name }}</h2>
           <!-- emit con  -->
-          <GenresNav :category="category" />
+          <GenresNav :category="category" @fetchGenresResults="onChange()" />
         </nav>
 
         <div :id="category.name"
@@ -25,15 +25,21 @@
           <div class="overflow-auto position-relative"
               :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
               v-for="(movie) in category.list"
-              @click="matchGender(movie, category)">
+
+              @click="matchGender(movie, category)"
+              v-show="matchGender(movie, category)===true">
+
+    
             <!-- card-body -->
             <div class="card-body position-absolute top-0 bottom-0 w-100">
+
               <CardInfos :movie="movie" />
 
               <CardPoster :movie="movie" />
             </div>
 
           </div>
+
 
         </div>
       </section>
@@ -60,24 +66,51 @@ export default {
   },
   methods: {
 
+    onChange(genresToActivate, gender) {
+
+      if (this.activeAll === true) {
+
+        this.activeAll = false
+        genresToActivate.length = 0
+        genresToActivate.push(gender)
+      }
+    },
+
     matchGender(movie, category) {
       let idFilterList = []
-      let isIncluded
 
-        category.activeGenres.forEach(gender => {
-          idFilterList.push(gender.id)
-          console.log(idFilterList)
-        });
-      for (let i = 0; i < movie.genre_ids.length; i++) {
-        if (idFilterList.includes(movie.genre_ids[i])) {
-          return  isIncluded= true
+      category.activeGenres.forEach(gender => {
+        idFilterList.push(gender.id)
+        //console.log(idFilterList)
+      });
 
-        } else {
-          return  isIncluded= false
+      /*  return movie.genre_ids.forEach(id => {
+         if (idFilterList.includes(id)) {
+           console.log("id", movie.genre_ids, "filter", idFilterList)
+           console.log(true)
+           return true
+         } else {
+           console.log(false)
+           return false
+         }
+       });  */
+
+
+      function fetch(movie) {
+        for (let i = 0; i < movie.genre_ids.length; i++) {
+          console.log("id", movie.genre_ids, "filter", idFilterList)
+          if (idFilterList.includes(movie.genre_ids[i])) {
+            console.log(true)
+            return true
+
+          } else {
+            console.log(false)
+            return false
+          }
         }
-
-
       }
+
+      return fetch(movie)
 
     }
 

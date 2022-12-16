@@ -58,20 +58,10 @@ export default {
   methods: {
     
 onChange(genresToActivate, gender) {
-
   this.$emit("fetchGenresResults", genresToActivate, gender)
-
-      if (this.activeAll === true) {
-
-        this.activeAll = false
-        genresToActivate.length = 0
-        genresToActivate.push(gender)
-      }
-      console.log(this.category.genresList)
-      console.log(genresToActivate)
-      console.log("tutti?:", this.activeAll)
-      console.log("lista originale:", this.category.genresList.length)
-      console.log("filter:", genresToActivate.length)
+  console.log("tutti", this.activeAll)
+      console.log("lista", this.category.genresList.length)
+      console.log("filter", genresToActivate.length)
     },
 
     setAllGenresActive(genresToActivate) {
