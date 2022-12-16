@@ -1,14 +1,15 @@
 <template>
-  <div class="info-card bg-dark w-100 h-100 position-absolute d-flex flex-column p-4">
+  <div class="info-card  w-100 h-100 position-absolute d-flex flex-column p-4"
+      :class="(isHovering) ? 'overflow-auto' : ''">
 
     <!-- titles -->
-    <hgroup class="text-center">
-      <h3 class="title text-uppercase">{{ getTitle }}</h3>
+    <div class="hgroup text-center">
+      <h3 class="title text-uppercase">{{ getTitle ? getTitle : "nessun titolo trovato" }}</h3>
 
       <h4 class="subtitle m-0"
           v-if="getTitle !== getOriginalTitle">( {{ getOriginalTitle }} )</h4>
       <template v-else />
-    </hgroup>
+    </div>
     <i class="fs-5 my-2 fi  align-self-center" :class="`fi-${getFlag}`"></i>
     <div class="infos-container flex-fill">
       <p class="text" @click="fetchMovieInfos">
@@ -108,6 +109,7 @@ export default {
           } else if (e.target.classList.contains("genres")) {
             rowInfosArray = resp.data.genres
           }
+
           rowInfosArray.forEach(info => {
             infosList.push(info.name)
           });
@@ -161,21 +163,22 @@ export default {
 
 .info-card {
   // retro non trasparente 
+  background-color: rgb(23, 23, 24);
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 0px 0px 4px 1px inset rgba(7, 0, 1, 0.801);
 
   backface-visibility: hidden;
 
   // faccia in giu! 
-  /*   transform: rotateY(180deg); _____________________*/
+  transform: rotateY(180deg);
 
-  /* overview */
-  hgroup {
+  //titles
+  .hgroup {
     flex-basis: 100px;
     flex-shrink: 0;
-    
   }
 
+  /* overview */
   .text-truncate-container {
     width: 250px;
 
@@ -201,5 +204,4 @@ export default {
 
 
 }
-
 </style>

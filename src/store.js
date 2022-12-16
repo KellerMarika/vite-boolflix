@@ -4,7 +4,7 @@ export const store = reactive({
 
   //parametri utente
   queries: {
-    text: "red",
+    text: "avatar",
     aduntContent: "false"
   },
   rootApi_Url: 'https://api.themoviedb.org/3',

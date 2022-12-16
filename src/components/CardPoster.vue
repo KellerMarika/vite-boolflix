@@ -57,6 +57,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   backface-visibility: hidden;
-  background: red;
+  background-image: url("../assets/Immagine.png");
+  background-color: #171718;
 }
 </style>
