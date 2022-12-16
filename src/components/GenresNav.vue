@@ -4,23 +4,23 @@
     <!-- GENDERS -->
     <!-- ciclo sulle categorie, creo un input per ogni categoria -->
 
-    <li class="list-group-item position-relative" 
-    v-for=" gender in category.genresList">
+    <li class="list-group-item position-relative"
+        v-for=" gender in category.genresList">
 
       <input class=" position-absolute start-50 opacity-0 "
-      type="checkbox" :id="gender.name" name="Genres" :value="gender.name" v-model="category.activeGenres"
-          @change="onChange(category.activeGenres, gender.name,  activeAll)" />
+          type="checkbox" :id="gender.name" name="Genres" :value="gender" v-model="category.activeGenres"
+          @change="onChange(category.activeGenres, gender)" />
 
       <label class="px-3 py-1"
-      :for="gender.name">{{ gender.name }}</label>
+          :for="gender.name">{{ gender.name }}</label>
     </li>
 
     <!-- ALL -->
     <li class="list-group-item position-relative">
 
       <input class=" position-absolute opacity-0 "
-      type="checkbox" id="all" name="activeAll" v-model="activeAll"
-            @change="setAllGenresActive(category.activeGenres, activeAll)" />
+          type="checkbox" id="all" name="activeAll" v-model="activeAll"
+          @change="setAllGenresActive(category.activeGenres)" />
 
       <label for="all" class="px-3 py-1 text-capitalize"> all</label>
     </li>
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    onChange(genresToActivate, gender,all) {
+    onChange(genresToActivate, gender) {
 
       if (this.activeAll === true) {
 
@@ -64,14 +64,14 @@ export default {
         genresToActivate.length = 0
         genresToActivate.push(gender)
       }
-
+      console.log(this.category.genresList)
+      console.log(genresToActivate)
       console.log("tutti?:", this.activeAll)
       console.log("lista originale:", this.category.genresList.length)
       console.log("filter:", genresToActivate.length)
     },
 
-    setAllGenresActive(genresToActivate,all) {
-     
+    setAllGenresActive(genresToActivate) {
 
       if (this.activeAll === true) {
         genresToActivate = this.category.genresList
@@ -95,9 +95,9 @@ export default {
 </script>
 
 <style lang="scss">
-#all{
+#all {
   left: 50%;
-  top:50%;
+  top: 50%;
   transform: translateX(-50%) translateY(-50%) scale(150%);
 
 }
