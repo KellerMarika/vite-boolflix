@@ -41,7 +41,11 @@ export default {
     getMovieImgSrc() {
       const rootUrl = "https://image.tmdb.org/t/p/"
       const imgSize = "w342"
-      return `${rootUrl}${imgSize}${this.movie.poster_path}`
+      if (this.movie.poster_path) {
+        return `${rootUrl}${imgSize}${this.movie.poster_path}`
+      } else {
+        return `'./x.png'`
+      }
     }
   },
   mounted() {
