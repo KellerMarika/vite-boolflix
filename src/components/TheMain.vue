@@ -17,14 +17,15 @@
           <!-- emit con  -->
           <GenresNav :category="category" />
         </nav>
-        
+
         <div :id="category.name"
             class=" cards-container d-flex overflow-auto mb-5">
 
           <!--ciclo single card -->
           <div class="overflow-auto position-relative"
               :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
-              v-for="(movie) in category.list">
+              v-for="(movie) in category.list"
+              @click="matchGender(movie, category)">
             <!-- card-body -->
             <div class="card-body position-absolute top-0 bottom-0 w-100">
               <CardInfos :movie="movie" />
@@ -58,36 +59,34 @@ export default {
     }
   },
   methods: {
-    /*  fetch(arrayActiveFilters, movieIds) {
-       //console.log("array", arrayActiveFilters)
-       //console.log("ids", movieIds)
- 
-       if (movieIds) {
-         arrayActiveFilters.forEach(gender => {
-           console.log(gender.id)
-           movieIds.forEach(id => {
- 
-             if (gender.id === id) {
-               console.log(id, true)
-               return true
-             } else {
-               console.log(false)
-               return false
-             }
-           });
- 
-         });
-       }else{ return false}
- 
- 
- 
- 
-     } */
+
+    matchGender(movie, category) {
+      let idFilterList = []
+      let isIncluded
+
+        category.activeGenres.forEach(gender => {
+          idFilterList.push(gender.id)
+          console.log(idFilterList)
+        });
+      for (let i = 0; i < movie.genre_ids.length; i++) {
+        if (idFilterList.includes(movie.genre_ids[i])) {
+          return  isIncluded= true
+
+        } else {
+          return  isIncluded= false
+        }
+
+
+      }
+
+    }
+
   },
   computed: {
 
   },
   mounted() {
+
   }
 }
 </script>

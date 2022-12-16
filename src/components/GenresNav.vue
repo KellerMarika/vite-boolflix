@@ -56,7 +56,10 @@ export default {
     }
   },
   methods: {
-    onChange(genresToActivate, gender) {
+    
+onChange(genresToActivate, gender) {
+
+  this.$emit("fetchGenresResults", genresToActivate, gender)
 
       if (this.activeAll === true) {
 
