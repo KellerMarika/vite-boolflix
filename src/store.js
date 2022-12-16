@@ -4,7 +4,7 @@ export const store = reactive({
 
   //parametri utente
   queries: {
-    text: "avatar",
+    text: "",
     aduntContent: "false"
   },
   rootApi_Url: 'https://api.themoviedb.org/3',
@@ -13,6 +13,7 @@ export const store = reactive({
   page: null,
 
   categories: [
+
     {
       name: "movie",
       url: "/search/movie",
@@ -22,8 +23,6 @@ export const store = reactive({
       genresUrl: "/genre/movie/list",
       genresList: [],
       activeGenres: [],
-
-
     },
     {
       name: "tv",

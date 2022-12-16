@@ -31,7 +31,7 @@
           :class="(isHovering) ? 'overflow-auto' : 'text-truncate-container'">
 
         <p class="text"> <i class=" overview">Trama:</i><br>
-          {{ movie.overview }}</p>
+          {{ movie.overview ? movie.overview : "nessun risultato" }}</p>
       </div>
     </div>
 
@@ -113,7 +113,13 @@ export default {
           rowInfosArray.forEach(info => {
             infosList.push(info.name)
           });
-          e.target.closest('.text').append(infosList.toString())
+
+          if (infosList.length) {
+            e.target.closest('.text').append(infosList.toString())
+          } else {
+            e.target.closest('.text').append("nessun risultato")
+          }
+
         });
     }
 
