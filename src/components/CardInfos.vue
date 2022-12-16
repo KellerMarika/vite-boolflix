@@ -105,8 +105,13 @@ export default {
           console.log(resp.data)
           if (e.target.classList.contains("lang")) {
             rowInfosArray = resp.data.spoken_languages
-          }
-          else if (e.target.classList.contains("genres")) {
+
+          } else if (e.target.classList.contains("cast")) {
+            rowInfosArray = resp.data.production_companies
+            //max 5 actors
+            if (rowInfosArray.length > 5) { rowInfosArray.length = 5 }
+
+          } else if (e.target.classList.contains("genres")) {
             rowInfosArray = resp.data.genres
           }
 

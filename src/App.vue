@@ -24,7 +24,7 @@ export default {
 		onSearchClick(userQueries) {
 			this.store.queries.text = userQueries.text
 			this.store.queries.aduntContent = userQueries.adultContent
-			console.log("queries adultContent", userQueries.adultContent)
+			//console.log("queries adultContent", userQueries.adultContent)
 
 			this.fetchLists(store.categories, store.queries)
 		},

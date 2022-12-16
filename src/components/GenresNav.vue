@@ -9,7 +9,7 @@
 
       <input class=" position-absolute start-50 opacity-0 "
       type="checkbox" :id="gender.name" name="Genres" :value="gender.name" v-model="category.activeGenres"
-          @change="onChange(category.activeGenres, gender.name)" />
+          @change="onChange(category.activeGenres, gender.name,  activeAll)" />
 
       <label class="px-3 py-1"
       :for="gender.name">{{ gender.name }}</label>
@@ -20,7 +20,7 @@
 
       <input class=" position-absolute opacity-0 "
       type="checkbox" id="all" name="activeAll" v-model="activeAll"
-            @change="setAllGenresActive(category.activeGenres)" />
+            @change="setAllGenresActive(category.activeGenres, activeAll)" />
 
       <label for="all" class="px-3 py-1 text-capitalize"> all</label>
     </li>
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    onChange(genresToActivate, gender) {
+    onChange(genresToActivate, gender,all) {
 
       if (this.activeAll === true) {
 
@@ -65,13 +65,13 @@ export default {
         genresToActivate.push(gender)
       }
 
-      console.log("tutti", this.activeAll)
-      console.log("lista", this.category.genresList.length)
-      console.log("filter", genresToActivate.length)
+      console.log("tutti?:", this.activeAll)
+      console.log("lista originale:", this.category.genresList.length)
+      console.log("filter:", genresToActivate.length)
     },
 
-    setAllGenresActive(genresToActivate) {
-      this.activeIndividually = false
+    setAllGenresActive(genresToActivate,all) {
+     
 
       if (this.activeAll === true) {
         genresToActivate = this.category.genresList
