@@ -56,24 +56,28 @@ export default {
     }
   },
   methods: {
-    
-onChange(genresToActivate, gender) {
-  this.$emit("fetchGenresResults", genresToActivate, gender)
-  console.log("tutti", this.activeAll)
-      console.log("lista", this.category.genresList.length)
-      console.log("filter", genresToActivate.length)
+
+    onChange(genresToActivate, gender) {
+
+      if (this.activeAll === true) {
+
+        this.activeAll = false
+        genresToActivate = 0
+        genresToActivate.push(gender)
+      }
+
+
+      console.log("All", this.activeAll, "lista", this.category.genresList.length, "filter", genresToActivate.length)
     },
 
     setAllGenresActive(genresToActivate) {
-
       if (this.activeAll === true) {
         genresToActivate = this.category.genresList
       } else {
         genresToActivate.length = 0
       }
-      console.log("tutti", this.activeAll)
-      console.log("lista", this.category.genresList.length)
-      console.log("filter", genresToActivate.length)
+      console.log("All", this.activeAll, "lista", "filter", genresToActivate)
+
     },
 
 

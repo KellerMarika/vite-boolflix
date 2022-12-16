@@ -15,7 +15,7 @@
 
           <h2 class="text-capitalize fs-1 p-2">{{ category.name }}</h2>
           <!-- emit con  -->
-          <GenresNav :category="category" @fetchGenresResults="onChange()" />
+          <GenresNav :category="category" />
         </nav>
 
         <div :id="category.name"
@@ -25,9 +25,7 @@
           <div class="overflow-auto position-relative"
               :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
               v-for="(movie) in category.list"
-
-              @click="matchGender(movie, category)"
-              v-show="matchGender(movie, category)===true">
+              v-show="(matchGender(movie, category) || category.activeGenres.length == category.genresList.length)">
 
     
             <!-- card-body -->
@@ -61,21 +59,10 @@ export default {
   data() {
     return {
       store,
-
     }
   },
   methods: {
-
-    onChange(genresToActivate, gender) {
-
-      if (this.activeAll === true) {
-
-        this.activeAll = false
-        genresToActivate.length = 0
-        genresToActivate.push(gender)
-      }
-    },
-
+ 
     matchGender(movie, category) {
       let idFilterList = []
 
