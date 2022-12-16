@@ -1,7 +1,6 @@
 <template>
   <div class="poster-card w-100 h-100  position-absolute"
-      @mouseover="showCardInfos? showCardInfos=false: showCardInfos=true"
-      :style="`background-image: url(${getMovieImgSrc})`">
+          :style="`background-image: url(${getMovieImgSrc})`">
   </div>
 </template>
 
@@ -44,7 +43,7 @@ export default {
       if (this.movie.poster_path) {
         return `${rootUrl}${imgSize}${this.movie.poster_path}`
       } else {
-        return `'./x.png'`
+        return `'./404.png'`
       }
     }
   },
@@ -61,7 +60,6 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   backface-visibility: hidden;
-  background-image: url("../assets/Immagine.png");
-  background-color: #171718;
+
 }
 </style>

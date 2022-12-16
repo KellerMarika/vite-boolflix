@@ -2,13 +2,14 @@
 
   <main class="main-container mt-4">
 
+    <!-- ciclo categoria -->
     <template v-for="category in store.categories">
 
-      <div class="mb-2"
+      <section class="mb-2"
           :id="`${category.name}-container`"
           v-if="category.active && store.queries.text">
 
-
+        <!-- navbar -->
         <nav class="py-3 px-3"
             :class="`${category.name}-nav`">
 
@@ -16,13 +17,11 @@
           <!-- emit con  -->
           <GenresNav :category="category" />
         </nav>
-
-
+        
         <div :id="category.name"
             class=" cards-container d-flex overflow-auto mb-5">
 
-
-          <!-- single card -->
+          <!--ciclo single card -->
           <div class="overflow-auto position-relative"
               :class="`${category.name}_card`" :key="`${category.name}_id:${movie.id}`"
               v-for="(movie) in category.list">
@@ -36,7 +35,7 @@
           </div>
 
         </div>
-      </div>
+      </section>
       <template v-else></template>
     </template>
   </main>

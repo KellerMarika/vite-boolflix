@@ -7,15 +7,15 @@
 
       <CategoriesNav />
 
-      <form action="" class="d-flex align-items-end" @submit.prevent="">
+      <form action="" class="d-flex align-items-end" @submit.prevent="onSearchClick(queries)">
 
         <ul class="list-unstyled d-flex">
-
           <li class="list-group-item">
+            
+            <!-- query text -->
             <label class="py-1 ps-2"
                 for="query-text ">
               <input class="bg-transparent rounded-1"
-
                   type="text" id="query-text" name="query-text" v-model="queries.text">
             </label>
             <button class="btn btn-dark me-4"
@@ -23,11 +23,15 @@
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </li>
+          
+          <!-- parental control -->
           <li class=" position-relative ">
             <input class="position-absolute start-50 opacity-0"
                 type="checkbox" id="query-age" name="query-age" v-model="queries.adultContent">
 
-            <label class="py-2 px-2" for="query-age">parental control
+            <label class="py-2 px-2 text-capitalize" for="query-age">{{ queries.adultContent ? 'adult' :
+                'parental-control'
+            }}
 
             </label>
           </li>
@@ -56,9 +60,6 @@ export default {
         text: "",
         adultContent: false
       }
-
-
-
     }
   },
   methods: {

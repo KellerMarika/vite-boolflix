@@ -7,12 +7,18 @@
       <h3 class="title text-uppercase">{{ getTitle ? getTitle : "nessun titolo trovato" }}</h3>
 
       <h4 class="subtitle m-0"
-          v-if="getTitle !== getOriginalTitle">( {{ getOriginalTitle }} )</h4>
+          v-if="getTitle !== getOriginalTitle">({{ getOriginalTitle }})</h4>
       <template v-else />
     </div>
+
+    <!-- flag -->
     <i class="fs-5 my-2 fi  align-self-center" :class="`fi-${getFlag}`"></i>
-    <div class="infos-container flex-fill">
-      <p class="text" @click="fetchMovieInfos">
+
+
+    <div class="infos-container">
+
+      <!-- infos to request -->
+      <p class="text" @click="fetchMovieCast">
         <i class=" cast">cast: </i><br>
       </p>
 
@@ -83,32 +89,59 @@ export default {
   },
   methods: {
     fetchMovieInfos(e) {
+
       let rowInfosArray
       let infosList = []
 
       const movieUrl = "/movie/"
-
       const movieId = this.movie.id
 
       axios.get(`${this.store.rootApi_Url}${movieUrl}${movieId}`, {
         params: {
           api_key: this.store.api_key,
-
         }
       })
         .then((resp) => {
-
+          console.log(resp.data)
           if (e.target.classList.contains("lang")) {
             rowInfosArray = resp.data.spoken_languages
-
-          } else if (e.target.classList.contains("cast")) {
-            rowInfosArray = resp.data.production_companies
-            //max 5 actors
-            if (rowInfosArray.length > 5) { rowInfosArray.length = 5 }
-
-          } else if (e.target.classList.contains("genres")) {
+          }
+          else if (e.target.classList.contains("genres")) {
             rowInfosArray = resp.data.genres
           }
+
+          rowInfosArray.forEach(info => {
+            infosList.push(info.name)
+          });
+
+          if (infosList.length) {
+            e.target.closest('.text').append(infosList.toString())
+          } else {
+            e.target.closest('.text').append("nessun risultato")
+          }
+
+        });
+    },
+    fetchMovieCast(e) {
+
+      let rowInfosArray
+      let infosList = []
+
+      const movieUrl = "/movie/"
+      const castUrl = "/credits"
+      const movieId = this.movie.id
+
+      axios.get(`${this.store.rootApi_Url}${movieUrl}${movieId}${castUrl}`, {
+        params: {
+          api_key: this.store.api_key,
+        }
+      })
+        .then((resp) => {
+          console.log(resp.data.cast)
+
+          rowInfosArray = resp.data.cast
+
+          if (rowInfosArray.length > 5) { rowInfosArray.length = 5 }
 
           rowInfosArray.forEach(info => {
             infosList.push(info.name)

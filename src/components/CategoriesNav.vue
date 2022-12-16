@@ -51,9 +51,8 @@ export default {
   },
   methods: {
     onChange(categoryToActivate) {
-      console.log("categoryToActivate passed", categoryToActivate);
-
-      this.store.categories.forEach(category => {
+      
+        this.store.categories.forEach(category => {
         if (category.name === categoryToActivate || categoryToActivate === "all") {
           category.active = true
         } else {

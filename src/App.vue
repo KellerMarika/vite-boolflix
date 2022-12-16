@@ -23,11 +23,13 @@ export default {
 	methods: {
 		onSearchClick(userQueries) {
 			this.store.queries.text = userQueries.text
-			this.store.queries.aduntContent = userQueries.aduntContent
+			this.store.queries.aduntContent = userQueries.adultContent
+			console.log("queries adultContent", userQueries.adultContent)
+
 			this.fetchLists(store.categories, store.queries)
 		},
 
-		/**FUNZIONE CREA ARRAY DEI FILM PER CIASCUNA CATEGORIA IN STORE.CATEGORIES
+		/**FUNZIONE CREA ARRAY DEI FILM PER CIASCUNA CATEGORIA
 		 * 
 		 * 
 		 * 
@@ -48,9 +50,10 @@ export default {
 							params: {
 								language: this.store.language,
 								api_key: this.store.api_key,
+
 								query: queries.text,
 								include_adult: queries.aduntContent
-								//  page:integer Specify which page to query.
+
 							}
 						})
 							.then((resp) => {
@@ -65,9 +68,9 @@ export default {
 			}
 		},
 
+		/* RECUOERO GENERI PER CATEGORIA */
 		fetchGenresList(category) {
 			let rowgenresArray = []
-
 
 			axios.get(`${this.store.rootApi_Url}${category.genresUrl}`, {
 				params: {
@@ -89,8 +92,9 @@ export default {
 
 						category.genresList.push(newGender);
 						/* 		this.onRefreshResetGendersFilterToAll() */
+						/* ________________________________________ */
 						category.activeGenres = category.genresList
-
+						/* ________________________________________ */
 					})
 				});
 		},
@@ -101,8 +105,6 @@ export default {
 				category.activeGenres = category.genresList
 
 			});
-
-
 		},
 	},
 	mounted() {
