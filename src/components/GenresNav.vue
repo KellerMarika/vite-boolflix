@@ -76,7 +76,7 @@ export default {
       } else {
         genresToActivate.length = 0
       }
-      console.log("All", this.activeAll, "lista", "filter", genresToActivate)
+      console.log("All", this.activeAll, "lista", "filter", genresToActivate.length)
 
     },
 

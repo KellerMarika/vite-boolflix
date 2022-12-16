@@ -27,7 +27,7 @@
               v-for="(movie) in category.list"
               v-show="(matchGender(movie, category) || category.activeGenres.length == category.genresList.length)">
 
-    
+
             <!-- card-body -->
             <div class="card-body position-absolute top-0 bottom-0 w-100">
 
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods: {
- 
+
     matchGender(movie, category) {
       let idFilterList = []
 
@@ -85,7 +85,7 @@ export default {
 
       function fetch(movie) {
         for (let i = 0; i < movie.genre_ids.length; i++) {
-          console.log("id", movie.genre_ids, "filter", idFilterList)
+          // console.log("id", movie.genre_ids, "filter", idFilterList)
           if (idFilterList.includes(movie.genre_ids[i])) {
             console.log(true)
             return true
